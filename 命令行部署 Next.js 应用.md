@@ -2,6 +2,17 @@
 
 >注: 目前 Serverless SSR 只支持 Next.js 与 Nuxt.js 两个框架组件的部署
 
+
+### 架构说明
+
+Next.js 组件将在腾讯云账户中使用到如下 Serverless 服务：
+
+- [x] **API 网关** - API 网关将会接收外部请求并且转发到 SCF 云函数中。
+- [x] **SCF 云函数** - 云函数将承载 Next.js 应用。
+- [x] **CAM 访问控制** - 该组件会创建默认 CAM 角色用于授权访问关联资源。
+- [x] **COS 对象存储** - 为确保上传速度和质量，云函数压缩并上传代码时，会默认将代码包存储在特定命名的 COS 桶中
+- [x] **SSL 证书服务** - 如果你在 yaml 文件中配置了 `apigatewayConf.customDomains` 字段，需要做自定义域名绑定并开启 HTTPS 时，也会用到证书管理服务和域名服务。Serverless Framework 会根据已经备案的域名自动申请并配置 SSL 证书。
+
 ### 0. 项目迁移
 
 如果你的项目本身运行就是基于 `express` 自定义服务的，那么你需要在项目中自定义入口文件 `sls.js`，需要参考你的服务启动文件进行修改，以下是一个 Next.js 项目的模板文件：
@@ -160,15 +171,6 @@ server.get('/no-report', (req, res) => {
 
 那么用户在访问 `GET /no-report` 路由时，就不会上报自定义监控指标。
 
-### 架构说明
-
-Next.js 组件将在腾讯云账户中使用到如下 Serverless 服务：
-
-- [x] **API 网关** - API 网关将会接收外部请求并且转发到 SCF 云函数中。
-- [x] **SCF 云函数** - 云函数将承载 Next.js 应用。
-- [x] **CAM 访问控制** - 该组件会创建默认 CAM 角色用于授权访问关联资源。
-- [x] **COS 对象存储** - 为确保上传速度和质量，云函数压缩并上传代码时，会默认将代码包存储在特定命名的 COS 桶中
-- [x] **SSL 证书服务** - 如果你在 yaml 文件中配置了 `apigatewayConf.customDomains` 字段，需要做自定义域名绑定并开启 HTTPS 时，也会用到证书管理服务和域名服务。Serverless Framework 会根据已经备案的域名自动申请并配置 SSL 证书。
 
 
 
