@@ -39,8 +39,6 @@ async function createServer() {
 module.exports = createServer
 ```
 
-- 点此查看[Nuxt.js 的模版文件](https://github.com/serverless-components/tencent-nuxtjs/blob/master/README.md#%E9%A1%B9%E7%9B%AE%E8%BF%81%E7%A7%BB---%E8%87%AA%E5%AE%9A%E4%B9%89-express-%E6%9C%8D%E5%8A%A1)
-
 ### 1. 安装
 
 通过 npm 全局安装 [serverless cli](https://github.com/serverless/serverless)
@@ -51,7 +49,7 @@ $ npm install -g serverless
 
 ### 2. 配置
 
-以 next.js 项目为例，在项目根目录创建 `serverless.yml` 文件，在其中进行如下配置
+在项目根目录创建 `serverless.yml` 文件，在其中进行如下配置
 
 ```bash
 $ touch serverless.yml
@@ -81,7 +79,6 @@ inputs:
 
 - 点此查看[更多配置及说明](https://github.com/serverless-components/tencent-nextjs/tree/v2/docs/configure.md)
 
-- 点此查看 [Nuxt.js 的组件配置](https://github.com/serverless-components/tencent-nuxtjs/blob/v2/docs/configure.md)
 
 ### 3. 部署
 
@@ -152,7 +149,7 @@ TENCENT_SECRET_KEY=123
 
 ## 架构说明
 
-Next.js 与 Nuxt.js 组件将在腾讯云账户中使用到如下 Serverless 服务：
+Next.js 组件将在腾讯云账户中使用到如下 Serverless 服务：
 
 - [x] **API 网关** - API 网关将会接收外部请求并且转发到 SCF 云函数中。
 - [x] **SCF 云函数** - 云函数将承载 Next.js 应用。
