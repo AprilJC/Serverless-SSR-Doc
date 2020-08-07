@@ -59,37 +59,3 @@ async function createServer() {
 
 module.exports = createServer
 ```
-
-#### Nuxt.js
-
-如果你的 Nuxt.js 项目本身运行就是基于 `express` 自定义服务的，那么你需要在项目中自定义入口文件 `sls.js`，需要参考你的服务启动文件进行修改，以下是一个模板文件：
-
-```js
-const express = require('express')
-const { loadNuxt } = require('nuxt')
-
-async function createServer() {
-  // not report route for custom monitor
-  const noReportRoutes = ['/_nuxt', '/static', '/favicon.ico']
-
-  const server = express()
-  const nuxt = await loadNuxt('start')
-
-  server.all('*', (req, res, next) => {
-    noReportRoutes.forEach((route) => {
-      if (req.path.indexOf(route) === 0) {
-        req.__SLS_NO_REPORT__ = true
-      }
-    })
-    return nuxt.render(req, res, next)
-  })
-
-  // define binary type for response
-  // if includes, will return base64 encoded, very useful for images
-  server.binaryTypes = ['*/*']
-
-  return server
-}
-
-module.exports = createServer
-```
